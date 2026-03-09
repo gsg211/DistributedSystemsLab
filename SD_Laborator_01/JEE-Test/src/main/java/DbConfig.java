@@ -60,7 +60,6 @@ public class DbConfig {
 
             pstmt.setString(1, student.getNume());
             pstmt.setString(2, student.getPrenume());
-            // Handle null medie if not set
             pstmt.setDouble(3, student.getMedie() != null ? student.getMedie() : 0.0);
             pstmt.setInt(4, student.getVarsta());
 
@@ -72,7 +71,7 @@ public class DbConfig {
 
     public static StudentBean getLastStudent() {
         StudentBean student = null;
-        // Get the most recently added student
+
         String sql = "SELECT * FROM students ORDER BY id DESC LIMIT 1";
 
         try (Connection conn = getConnection();
@@ -142,7 +141,6 @@ public class DbConfig {
         try {
             List<StudentBean> lista = getAllStudents();
 
-            // ObjectMapper este echivalentul JSON al lui XmlMapper
             ObjectMapper mapper = new ObjectMapper();
 
             return mapper.writeValueAsString(lista);
