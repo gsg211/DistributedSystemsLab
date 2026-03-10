@@ -8,8 +8,7 @@ import org.springframework.stereotype.Service
 
 @Service
 @ChainNext(ForecastNode::class)
-class LocationSearchNode: Chainable<String, Pair<Double, Double>> {
-    private lateinit var service: LocationSearchInterface
+class LocationSearchNode(private val service: LocationSearchInterface): Chainable<String, Pair<Double, Double>> {
     override fun proceed(input: String): Pair<Double, Double> {
         return service.getLocationId(input)
     }

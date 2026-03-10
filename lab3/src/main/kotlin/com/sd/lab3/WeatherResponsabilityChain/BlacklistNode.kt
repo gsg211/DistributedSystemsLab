@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service
 
 @Service
 @ChainNext(LocationSearchNode::class)
-class BlacklistNode: Chainable<String, String> {
-    private lateinit var service: BlacklistInterface
+class BlacklistNode( private val service: BlacklistInterface ): Chainable<String, String> {
+
     override fun proceed(input: String): String {
         return service.filter(input)
     }
