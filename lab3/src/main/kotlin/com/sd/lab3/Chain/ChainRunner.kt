@@ -8,7 +8,7 @@ import kotlin.reflect.full.findAnnotation
 
 class ChainRunner(
     startClass: KClass<out Chainable<*, *>>,
-    private val context: ApplicationContext // ADD THIS PARAMETER
+    private val context: ApplicationContext
 ) {
     val handlers = mutableListOf<Chainable<*, *>>()
 
@@ -16,7 +16,6 @@ class ChainRunner(
         var currentClass: KClass<out Chainable<*, *>>? = startClass
 
         while (currentClass != null) {
-            // FIX: Get the instance FROM SPRING instead of creating a new one
             val handler = context.getBean(currentClass.java) as Chainable<*, *>
             handlers.add(handler)
 

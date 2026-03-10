@@ -3,7 +3,6 @@ package com.sd.lab3.WeatherResponsabilityChain
 import com.sd.lab3.Chain.ChainNext
 import com.sd.lab3.Chain.Chainable
 import com.sd.lab3.interfaces.LocationSearchInterface
-import com.sd.lab3.services.LocationSearchService
 import org.springframework.stereotype.Service
 
 @Service
