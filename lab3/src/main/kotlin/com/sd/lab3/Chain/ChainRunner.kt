@@ -1,9 +1,7 @@
 package com.sd.lab3.Chain
 
-import com.sd.lab3.interfaces.TimeInterface
 import org.springframework.context.ApplicationContext
 import kotlin.reflect.KClass
-import kotlin.reflect.full.createInstance
 import kotlin.reflect.full.findAnnotation
 
 class ChainRunner(
