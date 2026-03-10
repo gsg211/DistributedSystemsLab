@@ -26,8 +26,7 @@ class LocationSearchService : LocationSearchInterface {
             val lng = firstResult.getDouble("longitude")
             return Pair(lat, lng)
         } else {
-            // Fallback if no location found (e.g., return 0.0, 0.0 or throw an exception)
-            return Pair(45.0, 27.0)
+            throw Exception("bad location")
         }
 
 
