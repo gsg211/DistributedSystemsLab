@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Forecast</title>
+    <style>
+        /* NEW: This container puts the card and the image side-by-side */
+        .flex-row {
+            display: flex;
+            align-items: flex-start; /* Keeps both at the same top level */
+            gap: 20px; /* Space between the card and the image */
+        }
+
+        .weather-card {
+            border: 1px solid #ccc;
+            padding: 20px;
+            width: 350px;
+            border-radius: 8px;
+            font-family: Arial, sans-serif;
+        }
+        .temp-main { font-size: 2em; font-weight: bold; }
+        .label { color: #666; font-weight: bold; }
+
+        /* Optional: Set a size for the ad image */
+        .ad-image {
+            max-width: 600px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+
+<p>Opa baiatu vezi ca <span th:text="${error}">ai prins o eroare</span></p>
+<img th:src="@{/ad.jpg}" alt="Advertisement" class="ad-image">
+
+
+</body>
+</html>

@@ -1,13 +1,17 @@
 package com.sd.lab3.services
+import com.sd.lab3.interfaces.TimeInterface
 import com.sd.lab3.interfaces.WeatherForecastInterface
 import com.sd.lab3.pojo.WeatherForecastData
 import org.json.JSONObject
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 import java.net.URL
 import kotlin.math.roundToInt
 
 @Service
-class WeatherForecastService (private val timeService: TimeService) : WeatherForecastInterface {
+class WeatherForecastService () : WeatherForecastInterface {
+    @Autowired
+    private lateinit var timeService: TimeInterface
     override fun getForecastData(locationId: Pair<Double, Double>): WeatherForecastData {
         val lat = locationId.first
         val lng = locationId.second

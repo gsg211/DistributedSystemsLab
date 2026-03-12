@@ -9,13 +9,13 @@ class FileBlacklistService(): BlacklistInterface {
 
     private val filepath="blacklist.txt"
     private val blacklist: Set<String> = try {
-        File(filepath).readLines().map { it.trim() }.toSet()
+        File(filepath).readLines().map { it.trim().lowercase() }.toSet()
     } catch (e: Exception) {
         emptySet()
     }
 
     override fun filter(input: String): String {
-        return if (blacklist.contains(input)) {
+        return if (blacklist.contains(input.lowercase())) {
             throw Exception("Nu ai voie $input")
         } else {
             input
