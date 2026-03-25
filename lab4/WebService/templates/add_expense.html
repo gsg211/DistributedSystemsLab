@@ -7,6 +7,8 @@
         .container { width: 350px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
         select, input { width: 100%; margin-bottom: 15px; padding: 10px; box-sizing: border-box; }
         button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        .footer-links { display: flex; justify-content: space-between; margin-top: 15px; font-size: 14px; }
+        .footer-links a { text-decoration: none; color: #007bff; }
     </style>
 </head>
 <body>
@@ -27,8 +29,11 @@
 
             <button type="submit">Save Expense</button>
         </form>
-        <br>
-        <a href="/expenses">Cancel</a>
+
+        <div class="footer-links">
+            <a href="/expenses">← Back to List</a>
+            <a href="/home">Home Page</a>
+        </div>
     </div>
 </body>
 </html>

@@ -8,15 +8,19 @@
         th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
         th { background-color: #f4f4f4; }
         .header { display: flex; justify-content: space-between; align-items: center; }
-        .btn-add { padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+        .btn-add { padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; margin-left: 5px; }
+        .btn-home { padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px; }
+        .btn-logout { margin-left:15px; color:red; text-decoration: none; font-weight: bold; }
+        .actions { display: flex; align-items: center; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>Expense List</h1>
-        <div>
+        <div class="actions">
+            <a href="/home" class="btn-home">Home</a>
             <a href="/add-expense" class="btn-add">Add New Expense</a>
-            <a href="/logout" style="margin-left:15px; color:red;">Logout</a>
+            <a href="/logout" class="btn-logout">Logout</a>
         </div>
     </div>
 
@@ -37,7 +41,7 @@
             </tr>
             {% else %}
             <tr>
-                <td colspan="3">No expenses found.</td>
+                <td colspan="3" style="text-align: center;">No expenses found.</td>
             </tr>
             {% endfor %}
         </tbody>

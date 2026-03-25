@@ -41,12 +41,12 @@ class AuthController(
     }
 
     @GetMapping("/validate")
-    fun validateToken(@RequestParam tokenString: String): ResponseEntity<Boolean> {
-        val isValid = tokenService.validateToken(tokenString)
-        return if (isValid) {
-            ResponseEntity.ok(true)
+    fun validateToken(@RequestParam tokenString: String): ResponseEntity<Pair<Boolean, String>> {
+        val tokenResponse = tokenService.validateToken(tokenString)
+        return if (tokenResponse.first) {
+            ResponseEntity.ok(Pair(true,tokenResponse.second))
         } else {
-            ResponseEntity.status(HttpStatus.FORBIDDEN).body(false)
+            ResponseEntity.status(HttpStatus.FORBIDDEN).body(Pair(false," "))
         }
     }
 }

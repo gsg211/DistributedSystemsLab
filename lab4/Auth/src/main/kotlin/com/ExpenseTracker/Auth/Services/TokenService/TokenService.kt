@@ -15,9 +15,15 @@ class TokenService(private val tokenRepository: TokenRepository) : TokenServiceI
         return tokenRepository.save(SessionToken(associatedName = username))
     }
 
-    override fun validateToken(tokenString: String): Boolean {
+    override fun validateToken(tokenString: String): Pair<Boolean,String> {
         val token = tokenRepository.findByTokenString(tokenString)
-        return token != null && !token.isExpired()
+        val isValid = token != null && !token.isExpired()
+
+        return if (isValid && token != null) {
+            Pair(true, token.associatedName)
+        } else {
+            Pair(false, "")
+        }
     }
 
     @Scheduled(fixedRate = 3600000)

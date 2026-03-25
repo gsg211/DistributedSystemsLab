@@ -2,7 +2,6 @@ import requests
 from flask import Flask, render_template, request, redirect, url_for
 
 
-# 1. Componenta de vizualizare
 class HtmlService:
     def getLoginPage(self):
         return render_template('login.html')
@@ -26,17 +25,14 @@ class HtmlService:
 # 2. Componenta de comunicare API
 class ApiManager:
     def __init__(self):
-        # Porturile interne Docker pentru comunicare între containere
         self.AUTH_URL = "http://auth-service:8080"
         self.EXPENSE_URL = "http://expense-service:8080"
 
     def login(self, username, password):
         try:
-            # Trimitem datele către Kotlin (folosim userName cum cere codul tău de Java)
             response = requests.post(f"{self.AUTH_URL}/login",
                                      json={"userName": username, "password": password}, timeout=5)
             if response.status_code == 200:
-                # Extragem tokenString din răspunsul JSON
                 return True, response.json().get('tokenString')
         except Exception as e:
             print(f"Eroare API Login: {e}")
@@ -44,7 +40,6 @@ class ApiManager:
 
     def register(self, username, fullname, password):
         try:
-            # Trimitem datele pentru înregistrare
             response = requests.post(f"{self.AUTH_URL}/register",
                                      json={"userName": username, "fullName": fullname, "password": password}, timeout=5)
             return response.status_code == 201
@@ -54,7 +49,7 @@ class ApiManager:
 
     def newExpense(self, token, data):
         try:
-            headers = {"Authorization": f"Bearer {token}"}
+            headers = {"Authorization": f"{token}"}
             response = requests.post(f"{self.EXPENSE_URL}/expenses", json=data, headers=headers)
             return response.status_code == 201
         except:
@@ -62,7 +57,7 @@ class ApiManager:
 
     def getAllExpenses(self, token):
         try:
-            headers = {"Authorization": f"Bearer {token}"}
+            headers = {"Authorization": f"{token}"}
             response = requests.get(f"{self.EXPENSE_URL}/expenses", headers=headers)
             if response.status_code == 200:
                 return response.json()
@@ -71,7 +66,6 @@ class ApiManager:
         return []
 
 
-# 3. Componenta principală Flask
 class FlaskWebService:
     def __init__(self):
         self.app = Flask(__name__, template_folder="templates")
@@ -98,7 +92,6 @@ class FlaskWebService:
         @self.app.route('/register', methods=['GET', 'POST'])
         def register_route():
             if request.method == 'POST':
-                # Luăm datele din formular (folosim .get pentru siguranță)
                 u = request.form.get('username') or request.form.get('userName')
                 f = request.form.get('fullname') or request.form.get('fullName')
                 p = request.form.get('password')
@@ -116,7 +109,6 @@ class FlaskWebService:
 
             success, token = self.__apiService.login(u, p)
             if success:
-                # SALVĂM TOKEN-UL ÎN VARIABILA CLASEI
                 self.current_token = token
                 print(f"DEBUG: Login reusit. Token curent: {self.current_token}")
                 return redirect(url_for('home_page'))
