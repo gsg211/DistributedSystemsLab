@@ -13,5 +13,6 @@ data class User (
     val id: Int? = null,
     val username: String,
     val fullname: String,
-    val passwordhash: String
+    val passwordhash: String,
+    val passwordsalt: String
 )

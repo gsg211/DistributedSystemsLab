@@ -45,4 +45,4 @@ def decrypt_route():
         return jsonify({"error": "Decryption failed"}), 400
 
 if __name__ == '__main__':
-   app.run(host='0.0.0.0', port=5001)
+   app.run(host='0.0.0.0', port=8080)

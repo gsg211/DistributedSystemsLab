@@ -27,15 +27,15 @@ services:
     build: ./CryptographicService
     container_name: crypto_service
     environment:
-    - KEY=AUTHKEY
+    - KEY=uL8-n7_XQ6yRzV_fQf8Qv_fV_fV_fV_fV_fV_fV_A0M=
     ports:
-      - "5001:5001"
+      - "5001:8080"
 
   web-service:
     build: ./WebService
     container_name: web_service
     ports:
-      - "5002:5001"
+      - "8080:8080"
 
   auth-service:
     build: ./Auth

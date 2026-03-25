@@ -17,13 +17,13 @@ class AuthController(
     private val tokenService: TokenServiceI
 ) {
 
-    data class LoginRequest(val firstname: String, val passwordhash: String)
-    data class RegisterRequest(val firstname: String, val lastname: String, val passwordhash: String)
+    data class LoginRequest(val userName: String, val password: String)
+    data class RegisterRequest(val userName: String, val fullName: String, val password: String)
 
     @PostMapping("/login")
     fun login(@RequestBody request: LoginRequest): ResponseEntity<SessionToken> {
-        return if (authService.checkLoginInfo(request.firstname, request.passwordhash)) {
-            val token = tokenService.generateNewToken(request.firstname)
+        return if (authService.checkLoginInfo(request.userName, request.password)) {
+            val token = tokenService.generateNewToken(request.userName)
             ResponseEntity.ok(token)
         } else {
             ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
@@ -32,7 +32,7 @@ class AuthController(
 
     @PostMapping("/register")
     fun postUser(@RequestBody request: RegisterRequest): ResponseEntity<String> {
-        val success = authService.createNewUser(request.firstname, request.lastname, request.passwordhash)
+        val success = authService.createNewUser(request.userName, request.fullName, request.password)
         return if (success) {
             ResponseEntity.status(HttpStatus.CREATED).body("User created")
         } else {

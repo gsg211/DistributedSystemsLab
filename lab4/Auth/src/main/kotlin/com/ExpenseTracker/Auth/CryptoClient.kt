@@ -5,7 +5,7 @@ import org.springframework.web.client.RestTemplate
 
 @Service
 class CryptoClient(private val restTemplate: RestTemplate) {
-    private val cryptoUrl = "http://crypto_service:5001"
+    private val cryptoUrl = "http://crypto-service:8080"
 
     fun getHash(password: String): String {
         val request = mapOf("input" to password)
@@ -13,15 +13,15 @@ class CryptoClient(private val restTemplate: RestTemplate) {
         return response?.get("result") as String
     }
 
-    fun encrypt(password: String): String {
-        val request = mapOf("input" to password)
+    fun encrypt(data: String): String {
+        val request = mapOf("input" to data)
         val response = restTemplate.postForObject("$cryptoUrl/encrypt", request, Map::class.java)
         return response?.get("result") as String
     }
 
-    fun encrypt(password: String): String {
-        val request = mapOf("input" to password)
-        val response = restTemplate.postForObject("$cryptoUrl/encrypt", request, Map::class.java)
+    fun decrypt(data: String): String {
+        val request = mapOf("input" to data)
+        val response = restTemplate.postForObject("$cryptoUrl/decrypt", request, Map::class.java)
         return response?.get("result") as String
     }
 }
