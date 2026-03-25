@@ -25,7 +25,6 @@ class ChainRunner(
     fun execute(initialInput: Any): Any? {
         var currentData: Any? = initialInput
         for (handler in handlers) {
-            @Suppress("UNCHECKED_CAST")
             val castedHandler = handler as Chainable<Any?, Any?>
             currentData = castedHandler.proceed(currentData)
         }

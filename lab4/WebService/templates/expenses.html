@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Expenses</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #f4f4f4; }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .btn-add { padding: 10px 20px; background: #28a745; color: white; text-decoration: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Expense List</h1>
+        <div>
+            <a href="/add-expense" class="btn-add">Add New Expense</a>
+            <a href="/logout" style="margin-left:15px; color:red;">Logout</a>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Type</th>
+                <th>Cost</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for exp in expenses %}
+            <tr>
+                <td>{{ exp.type }}</td>
+                <td>${{ "%.2f"|format(exp.cost) }}</td>
+                <td>{{ exp.timestamp }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3">No expenses found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
