@@ -43,7 +43,7 @@ class ExpensesController(
         }
         val typeEnum = getExpenseType(request.type)
             ?: return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Expense Type: ${request.type}")
-        
+
         expensesService.addNewExpense(userName, typeEnum, request.cost)
         return ResponseEntity.ok("done")
     }
