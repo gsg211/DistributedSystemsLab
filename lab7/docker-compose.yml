@@ -1,0 +1,50 @@
+services:
+  logger:
+    build: ./logger
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./my_saved_logs:/app/logs
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s # Give the JVM time to boot before checking
+
+  auctioneer:
+    build: ./auctioner
+    ports:
+      - "8080:8080"
+    environment:
+      - LOGGER_URL=http://logger:8080/log
+    depends_on:
+      logger:
+        condition: service_healthy # Wait until Logger is HEALTHY, not just started
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+  bidder:
+    build: ./bidder
+    deploy:
+      replicas: 10
+    environment:
+      - AUCTIONEER_URL=http://auctioneer:8080/auction/bid
+      - LOGGER_URL=http://logger:8080/log
+    depends_on:
+      auctioneer:
+        condition: service_healthy
+      logger:
+        condition: service_healthy
+    # Bidders don't usually need a healthcheck unless other services depend on them,
+    # but it's good practice to keep them consistent
+    healthcheck:
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s

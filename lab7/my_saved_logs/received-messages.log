@@ -1,0 +1,77 @@
+2026-04-08T12:42:56.254Z  INFO 1 --- [logger] [main] com.lab7.logger.LoggerApplicationKt      : Starting LoggerApplicationKt v0.0.1-SNAPSHOT using Java 17.0.18 with PID 1 (/app/app.jar started by root in /app)
+2026-04-08T12:42:56.264Z  INFO 1 --- [logger] [main] com.lab7.logger.LoggerApplicationKt      : No active profile set, falling back to 1 default profile: "default"
+2026-04-08T12:42:57.650Z  INFO 1 --- [logger] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-04-08T12:42:57.676Z  INFO 1 --- [logger] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-08T12:42:57.677Z  INFO 1 --- [logger] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-04-08T12:42:57.730Z  INFO 1 --- [logger] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 1338 ms
+2026-04-08T12:42:58.880Z  INFO 1 --- [logger] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-04-08T12:42:58.916Z  INFO 1 --- [logger] [main] com.lab7.logger.LoggerApplicationKt      : Started LoggerApplicationKt in 3.55 seconds (process running for 4.087)
+2026-04-08T12:43:00.440Z  INFO 1 --- [logger] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-08T12:43:00.441Z  INFO 1 --- [logger] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-08T12:43:00.442Z  INFO 1 --- [logger] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-04-08T12:43:00.678Z  INFO 1 --- [logger] [http-nio-8080-exec-1] com.lab7.logger.LoggerController         : Received Log: [Bidder-7439] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:43:01.015Z  INFO 1 --- [logger] [http-nio-8080-exec-2] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-7439: $55
+2026-04-08T12:43:14.104Z  INFO 1 --- [logger] [http-nio-8080-exec-3] com.lab7.logger.LoggerController         : Received Log: Auction ended: Winner is Bidder-7439 with $55!
+2026-04-08T12:43:14.125Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: [Bidder-7439] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-7439 with $55!
+2026-04-08T12:43:29.103Z  INFO 1 --- [logger] [http-nio-8080-exec-5] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:51:22.388Z  INFO 1 --- [logger] [main] com.lab7.logger.LoggerApplicationKt      : Starting LoggerApplicationKt v0.0.1-SNAPSHOT using Java 17.0.18 with PID 1 (/app/app.jar started by root in /app)
+2026-04-08T12:51:22.392Z  INFO 1 --- [logger] [main] com.lab7.logger.LoggerApplicationKt      : No active profile set, falling back to 1 default profile: "default"
+2026-04-08T12:51:23.314Z  INFO 1 --- [logger] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-04-08T12:51:23.329Z  INFO 1 --- [logger] [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-04-08T12:51:23.329Z  INFO 1 --- [logger] [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.20]
+2026-04-08T12:51:23.355Z  INFO 1 --- [logger] [main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 909 ms
+2026-04-08T12:51:24.103Z  INFO 1 --- [logger] [main] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 1 endpoint beneath base path '/actuator'
+2026-04-08T12:51:24.161Z  INFO 1 --- [logger] [main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-04-08T12:51:24.167Z  INFO 1 --- [logger] [main] com.lab7.logger.LoggerApplicationKt      : Started LoggerApplicationKt in 2.26 seconds (process running for 2.741)
+2026-04-08T12:51:26.499Z  INFO 1 --- [logger] [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-04-08T12:51:26.499Z  INFO 1 --- [logger] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-04-08T12:51:26.501Z  INFO 1 --- [logger] [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+2026-04-08T12:51:47.808Z  INFO 1 --- [logger] [http-nio-8080-exec-3] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:51:52.525Z  INFO 1 --- [logger] [http-nio-8080-exec-5] com.lab7.logger.LoggerController         : Received Log: [Bidder-4328] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:52.825Z  INFO 1 --- [logger] [http-nio-8080-exec-6] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-4328: $41
+2026-04-08T12:51:53.110Z  INFO 1 --- [logger] [http-nio-8080-exec-7] com.lab7.logger.LoggerController         : Received Log: [Bidder-fcab] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:53.244Z  INFO 1 --- [logger] [http-nio-8080-exec-8] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-fcab: $26
+2026-04-08T12:51:54.158Z  INFO 1 --- [logger] [http-nio-8080-exec-9] com.lab7.logger.LoggerController         : Received Log: [Bidder-72ba] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:54.168Z  INFO 1 --- [logger] [http-nio-8080-exec-10] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-72ba: $11
+2026-04-08T12:51:54.704Z  INFO 1 --- [logger] [http-nio-8080-exec-1] com.lab7.logger.LoggerController         : Received Log: [Bidder-b885] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:54.738Z  INFO 1 --- [logger] [http-nio-8080-exec-2] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-b885: $90
+2026-04-08T12:51:55.264Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: [Bidder-6491] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:55.285Z  INFO 1 --- [logger] [http-nio-8080-exec-3] com.lab7.logger.LoggerController         : Received Log: [Bidder-4c03] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:55.286Z  INFO 1 --- [logger] [http-nio-8080-exec-5] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-6491: $91
+2026-04-08T12:51:55.310Z  INFO 1 --- [logger] [http-nio-8080-exec-6] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-4c03: $27
+2026-04-08T12:51:55.915Z  INFO 1 --- [logger] [http-nio-8080-exec-7] com.lab7.logger.LoggerController         : Received Log: [Bidder-a450] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:55.973Z  INFO 1 --- [logger] [http-nio-8080-exec-8] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-a450: $42
+2026-04-08T12:51:56.145Z  INFO 1 --- [logger] [http-nio-8080-exec-9] com.lab7.logger.LoggerController         : Received Log: [Bidder-b066] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:56.145Z  INFO 1 --- [logger] [http-nio-8080-exec-10] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-b066: $79
+2026-04-08T12:51:56.435Z  INFO 1 --- [logger] [http-nio-8080-exec-1] com.lab7.logger.LoggerController         : Received Log: [Bidder-7848] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:56.454Z  INFO 1 --- [logger] [http-nio-8080-exec-2] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-7848: $65
+2026-04-08T12:51:56.798Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: [Bidder-e1b8] Bid sent. Waiting for the auctioneer to finish the round...
+2026-04-08T12:51:56.814Z  INFO 1 --- [logger] [http-nio-8080-exec-3] com.lab7.logger.LoggerController         : Received Log: Received bid from Bidder-e1b8: $91
+2026-04-08T12:51:59.384Z  INFO 1 --- [logger] [http-nio-8080-exec-6] com.lab7.logger.LoggerController         : Received Log: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.419Z  INFO 1 --- [logger] [http-nio-8080-exec-7] com.lab7.logger.LoggerController         : Received Log: [Bidder-4328] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.425Z  INFO 1 --- [logger] [http-nio-8080-exec-8] com.lab7.logger.LoggerController         : Received Log: [Bidder-72ba] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.431Z  INFO 1 --- [logger] [http-nio-8080-exec-1] com.lab7.logger.LoggerController         : Received Log: [Bidder-b066] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.433Z  INFO 1 --- [logger] [http-nio-8080-exec-10] com.lab7.logger.LoggerController         : Received Log: [Bidder-e1b8] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.433Z  INFO 1 --- [logger] [http-nio-8080-exec-9] com.lab7.logger.LoggerController         : Received Log: [Bidder-4c03] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.437Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: [Bidder-6491] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.438Z  INFO 1 --- [logger] [http-nio-8080-exec-2] com.lab7.logger.LoggerController         : Received Log: [Bidder-b885] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.439Z  INFO 1 --- [logger] [http-nio-8080-exec-10] com.lab7.logger.LoggerController         : Received Log: [Bidder-7848] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.441Z  INFO 1 --- [logger] [http-nio-8080-exec-5] com.lab7.logger.LoggerController         : Received Log: [Bidder-a450] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:51:59.441Z  INFO 1 --- [logger] [http-nio-8080-exec-9] com.lab7.logger.LoggerController         : Received Log: [Bidder-fcab] AUCTION FINISHED! Result: Auction ended: Winner is Bidder-6491 with $91!
+2026-04-08T12:52:14.384Z  INFO 1 --- [logger] [http-nio-8080-exec-8] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:52:29.383Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:52:44.384Z  INFO 1 --- [logger] [http-nio-8080-exec-2] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:52:59.383Z  INFO 1 --- [logger] [http-nio-8080-exec-9] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:53:14.383Z  INFO 1 --- [logger] [http-nio-8080-exec-7] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:53:29.384Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:53:44.383Z  INFO 1 --- [logger] [http-nio-8080-exec-8] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:53:59.384Z  INFO 1 --- [logger] [http-nio-8080-exec-1] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:54:14.383Z  INFO 1 --- [logger] [http-nio-8080-exec-7] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:54:29.384Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:54:44.384Z  INFO 1 --- [logger] [http-nio-8080-exec-8] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:54:59.383Z  INFO 1 --- [logger] [http-nio-8080-exec-1] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:55:14.383Z  INFO 1 --- [logger] [http-nio-8080-exec-7] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:55:29.383Z  INFO 1 --- [logger] [http-nio-8080-exec-4] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:55:44.384Z  INFO 1 --- [logger] [http-nio-8080-exec-8] com.lab7.logger.LoggerController         : Received Log: Auction ended: No bids received.
+2026-04-08T12:55:57.415Z  INFO 1 --- [logger] [SpringApplicationShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-04-08T12:55:57.423Z  INFO 1 --- [logger] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete

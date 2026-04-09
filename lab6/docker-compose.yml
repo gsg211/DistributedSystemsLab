@@ -1,0 +1,64 @@
+services:
+  db-auth:
+    image: postgres:15-alpine
+    container_name: auth_db
+    environment:
+      POSTGRES_USER: user_admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: auth_db
+    ports:
+      - "5433:5432"
+    volumes:
+      - ./data/auth:/var/lib/postgresql/data:z
+
+  db-expenses:
+    image: postgres:15-alpine
+    container_name: expenses_db
+    environment:
+      POSTGRES_USER: user_admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: expenses_db
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./data/expenses:/var/lib/postgresql/data:z
+
+  crypto-service:
+    build: ./CryptographicService
+    container_name: crypto_service
+    environment:
+    - KEY=uL8-n7_XQ6yRzV_fQf8Qv_fV_fV_fV_fV_fV_fV_A0M=
+    ports:
+      - "5001:8080"
+
+  web-service:
+    build: ./WebService
+    container_name: web_service
+    ports:
+      - "8080:8080"
+
+  auth-service:
+    build: ./Auth
+    container_name: auth_service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-auth:5432/auth_db
+      - SPRING_DATASOURCE_USERNAME=user_admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "5003:8080"
+    depends_on:
+      - db-auth
+
+  expense-service:
+    build: ./ExpenseService
+    container_name: expenses_service
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-expenses:5432/expenses_db
+      - SPRING_DATASOURCE_USERNAME=user_admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+    ports:
+      - "5004:8080"
+    depends_on:
+      - db-expenses

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Expense</title>
+    <style>
+        body { font-family: sans-serif; display: flex; justify-content: center; margin-top: 50px; }
+        .container { width: 350px; padding: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        select, input { width: 100%; margin-bottom: 15px; padding: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #28a745; color: white; border: none; cursor: pointer; }
+        .footer-links { display: flex; justify-content: space-between; margin-top: 15px; font-size: 14px; }
+        .footer-links a { text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>New Expense</h2>
+        <form action="/add-expense" method="POST">
+            <label>Category:</label>
+            <select name="type">
+                <option value="UPKEEP">UPKEEP</option>
+                <option value="FOOD">FOOD</option>
+                <option value="FUN">FUN</option>
+                <option value="SCHOOL">SCHOOL</option>
+                <option value="PERSONAL">PERSONAL</option>
+            </select>
+
+            <label>Cost ($):</label>
+            <input type="number" step="0.01" name="cost" placeholder="0.00" required>
+
+            <button type="submit">Save Expense</button>
+        </form>
+
+        <div class="footer-links">
+            <a href="/expenses">← Back to List</a>
+            <a href="/home">Home Page</a>
+        </div>
+    </div>
+</body>
+</html>
