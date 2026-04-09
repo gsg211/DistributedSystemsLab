@@ -1,64 +1,61 @@
+version: '3.8'
+
 services:
-  db-auth:
+  # Database
+  db:
     image: postgres:15-alpine
-    container_name: auth_db
+    container_name: postgres_db
     environment:
-      POSTGRES_USER: user_admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: auth_db
+      POSTGRES_DB: bookdb
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
     ports:
-      - "5433:5432"
-    volumes:
-      - ./data/auth:/var/lib/postgresql/data:z
+      - "5432:5432"
 
-  db-expenses:
-    image: postgres:15-alpine
-    container_name: expenses_db
+  # Cache
+  redis:
+    image: redis:alpine
+    container_name: redis_cache
+    ports:
+      - "6379:6379"
+
+  # Book Microservice (Kotlin + Postgres)
+  book-service:
+    build: ./BookMicroService
+    container_name: book_service
+    ports:
+      - "8081:8081"
+    depends_on:
+      - db
     environment:
-      POSTGRES_USER: user_admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: expenses_db
-    ports:
-      - "5434:5432"
-    volumes:
-      - ./data/expenses:/var/lib/postgresql/data:z
+      - DB_HOST=db
+      - DB_NAME=bookdb
+      - DB_USER=user
+      - DB_PASSWORD=password
+      - SERVER_PORT=8081
 
-  crypto-service:
-    build: ./CryptographicService
-    container_name: crypto_service
+  # Caching Microservice (Kotlin + Redis)
+  cache-service:
+    build: ./CachingMicroService
+    container_name: cache_service
+    ports:
+      - "8082:8082"
+    depends_on:
+      - redis
     environment:
-    - KEY=uL8-n7_XQ6yRzV_fQf8Qv_fV_fV_fV_fV_fV_fV_A0M=
-    ports:
-      - "5001:8080"
+      - SERVER_PORT=8082
+      - SPRING_DATA_REDIS_HOST=redis
+      - SPRING_DATA_REDIS_PORT=6379
 
+  # Web Service (Python)
   web-service:
     build: ./WebService
     container_name: web_service
     ports:
-      - "8080:8080"
-
-  auth-service:
-    build: ./Auth
-    container_name: auth_service
-    environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-auth:5432/auth_db
-      - SPRING_DATASOURCE_USERNAME=user_admin
-      - SPRING_DATASOURCE_PASSWORD=admin
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    ports:
-      - "5003:8080"
+      - "5000:5000"
     depends_on:
-      - db-auth
-
-  expense-service:
-    build: ./ExpenseService
-    container_name: expenses_service
+      - book-service
+      - cache-service
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db-expenses:5432/expenses_db
-      - SPRING_DATASOURCE_USERNAME=user_admin
-      - SPRING_DATASOURCE_PASSWORD=admin
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-    ports:
-      - "5004:8080"
-    depends_on:
-      - db-expenses
+      - BOOK_SERVICE_URL=http://book-service:8081
+      - CACHE_SERVICE_URL=http://cache-service:8082
