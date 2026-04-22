@@ -10,7 +10,7 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-      start_period: 20s # Give the JVM time to boot before checking
+      start_period: 20s
 
   auctioneer:
     build: ./auctioner
@@ -20,7 +20,7 @@ services:
       - LOGGER_URL=http://logger:8080/log
     depends_on:
       logger:
-        condition: service_healthy # Wait until Logger is HEALTHY, not just started
+        condition: service_healthy
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
       interval: 10s
@@ -40,8 +40,7 @@ services:
         condition: service_healthy
       logger:
         condition: service_healthy
-    # Bidders don't usually need a healthcheck unless other services depend on them,
-    # but it's good practice to keep them consistent
+
     healthcheck:
       test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:8080/actuator/health || exit 1"]
       interval: 30s

@@ -40,17 +40,13 @@ class BidderService(
             .retrieve()
             .bodyToMono(String::class.java)
 
-        // 2. Convert the Mono to an RxJava Single
-        // We use Single because we expect exactly ONE response back from the Auctioneer
         val resultSingle = Single.fromPublisher(responseMono)
 
-        // 3. SUBSCRIBE: This is what actually sends the request and waits for the answer
         resultSingle.subscribeBy(
             onSuccess = { result ->
                 remoteLogger.info("[$myId] AUCTION FINISHED! Result: $result")
             },
             onError = { error ->
-                // This code runs if the Auctioneer is down or a timeout occurs
                 remoteLogger.info("[$myId] Auction failed: ${error.message}")
             }
         )

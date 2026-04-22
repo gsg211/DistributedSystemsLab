@@ -15,9 +15,16 @@ class Auctioneer{
     +forwardBids()
     +finishAuction()
 }
+class Logger{
+    +log()
+}
 
 Bidder -->Auctioneer
 
 Auctioneer --> Bidder
+
+Bidder -->Logger
+
+Auctioneer --> Logger
 
 ```
