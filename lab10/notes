@@ -1,0 +1,34 @@
+Microserviciul Bidder se foloseşte de 2 topic-uri Kafka:
+
+− topic_oferte → aici îşi va publica oferta (generată aleator) sub formă de mesaj Kafka.
+− topic_rezultat → din acest topic va consuma un singur mesaj: rezultatul licitaţiei
+care va apărea în momentul în care BiddingProcessor va stabili câştigătorul. Bidder-ul
+va aştepta până se primeşte răspunsul în acest topic
+
+
+Mesajul este de forma:
+− corp: şirul de caractere BID
+− metadate:
+− amount: PRETUL_LICITAT
+− identity: IDENTIFICATOR_OFERTANT
+- tip: TIP_LICITATIE
+
+
+
+Microserviciul Auctioneer foloseşte 2 topic-uri Kafka, astfel:
+− topic_oferte → de aici consumă mesajele cu oferte primite de la microserviciile
+Bidder.
+
+Se observă că fiecare instanţă de Auctioneer este asignată ca şi consumator în
+grupul de consumatori „auctioneers” - a se vedea parametrul
+group_id="auctioneers" adăugat la construirea obiectului KafkaConsumer.
+
+Topic-ul este împărţit în 4 partiţii, şi deci Kafka va distribui mesajele în mod echilibrat între
+consumatorii acelui grup. Dacă se pornesc mai multe instanţe de Auctioneer, fiecare va
+primi o parte din fluxul de mesaje de la entităţile Bidder.
+
+
+− topic_notificare_procesor_mesaje → deoarece licitaţia se încheie după 15
+secunde de inactivitate la aşteptarea de oferte (conform parametrului
+consumer_timeout_ms=15_000), MessageProcessor este notificat prin acest topic
+atunci când nu se mai primesc oferte, ca el să poată prelua mesajele spre procesare.

@@ -1,0 +1,35 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  skipper:
+    image: springcloud/spring-cloud-skipper-server:2.11.3
+    container_name: skipper
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    ports:
+      - "7577:7577"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+
+  dataflow-server:
+    image: springcloud/spring-cloud-dataflow-server:2.11.3
+    container_name: dataflow-server
+    environment:
+      - SPRING_CLOUD_SKIPPER_CLIENT_SERVER_URI=http://skipper:7577/api
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    ports:
+      - "9393:9393"
+    depends_on:
+      - skipper
+      - rabbitmq

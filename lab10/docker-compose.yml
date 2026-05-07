@@ -1,0 +1,58 @@
+services:
+  kafka:
+    image: apache/kafka:latest
+    environment:
+      # KRaft Specifics
+      - KAFKA_NODE_ID=1
+      - KAFKA_PROCESS_ROLES=broker,controller
+      - KAFKA_CONTROLLER_QUORUM_VOTERS=1@kafka:9093
+      # Listeners
+      - KAFKA_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093
+      - KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT
+      # Metadata
+      - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
+      - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+
+  ui_service:
+    build: ./UserInterface
+    depends_on:
+      - kafka
+    ports:
+      - "5000:5000"
+
+  auctioneer:
+    build: ./Auctioneer
+    depends_on:
+      - kafka
+
+  bidder:
+    build: ./Bidder
+    depends_on:
+      - kafka
+
+  message-processor:
+    build: ./MessageProcessor
+    depends_on:
+      - kafka
+
+  bidding-processor:
+    build: ./BiddingProcessor
+    depends_on:
+      - kafka
+    deploy:
+      replicas: 10
+
+   # ENSURE THIS IS ALIGNED WITH THE OTHER SERVICES
+  init-kafka:
+    image: apache/kafka:latest
+    depends_on:
+      - kafka
+    entrypoint: [ '/bin/bash', '-c' ]
+    command: >
+      "echo 'Waiting for Kafka...';
+      while ! nc -z kafka 9092; do sleep 1; done;
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic auctions_topic --partitions 1 --replication-factor 1;
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic bids_topic --partitions 1 --replication-factor 1;
+      /opt/kafka/bin/kafka-topics.sh --bootstrap-server kafka:9092 --create --if-not-exists --topic result_topic --partitions 1 --replication-factor 1;"

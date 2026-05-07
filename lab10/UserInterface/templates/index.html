@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auction UI</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background-color: #f9f9f9; }
+        .card { background: white; border: 1px solid #ccc; padding: 15px; margin-bottom: 10px; border-radius: 5px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .winner { color: green; font-weight: bold; }
+        .header { border-bottom: 2px solid #333; margin-bottom: 20px; }
+        form { display: flex; gap: 10px; align-items: center; }
+        button { cursor: pointer; background: #007bff; color: white; border: none; padding: 8px 15px; border-radius: 4px; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Manage Auctions</h1>
+    </div>
+
+    <div class="card">
+        <h3>Create New Auction</h3>
+        <!-- Changed to an ID so we can use AJAX -->
+        <form id="createAuctionForm">
+            <label>Starting Cost:</label>
+            <input type="number" name="start_cost" value="100" required>
+
+            <label>Type:</label>
+            <select name="type">
+                <option value="English">English</option>
+                <option value="Dutch">Dutch</option>
+                <option value="Candle">Candle</option>
+                <option value="Swedish">Swedish</option>
+            </select>
+
+            <button type="submit">Start Auction</button>
+        </form>
+        <p id="statusMessage" style="font-size: 0.8em; color: #666;"></p>
+    </div>
+
+    <hr>
+
+    <h3>Auction Results (Live from Kafka)</h3>
+    <div id="results-container">
+        <!-- Initial load from Flask context -->
+        {% for res in results %}
+        <div class="card">
+            <p><strong>Type:</strong> {{ res.type }}</p>
+            <p class="winner">Winner: {{ res.winner if res.winner else 'Calculating...' }} - Price: {{ res.final_price if res.final_price else res.start_cost }}</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script>
+        // 1. Handle Form Submission without refreshing the page
+        document.getElementById('createAuctionForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const status = document.getElementById('statusMessage');
+
+            status.innerText = "Sending to Kafka...";
+
+            try {
+                const response = await fetch('/create_auction', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                status.innerText = "✓ Auction successfully queued!";
+                setTimeout(() => status.innerText = "", 3000);
+            } catch (err) {
+                status.innerText = "Error: Could not connect to backend.";
+            }
+        };
+
+        // 2. Polling every 3 seconds for updates
+        setInterval(async () => {
+            try {
+                const response = await fetch('/get_results');
+                const data = await response.json();
+                const container = document.getElementById('results-container');
+
+                if (data.length === 0) {
+                    container.innerHTML = '<p style="color: #999;">No results yet. Start an auction to see data.</p>';
+                    return;
+                }
+
+                container.innerHTML = data.map(res => `
+                    <div class="card">
+                        <p><strong>Type:</strong> ${res.type}</p>
+                        <p class="winner">Winner: ${res.winner || 'Pending...'} - Price: $${res.final_cost || res.start_cost || 0}</p>
+                        <p style="font-size: 0.7em; color: #999;">Status: ${res.status}</p>
+                    </div>
+                `).reverse().join(''); // Reverse to show newest at the top
+            } catch (err) {
+                console.error("Polling error:", err);
+            }
+        }, 3000);
+    </script>
+</body>
+</html>
